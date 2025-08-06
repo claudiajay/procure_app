@@ -134,7 +134,7 @@ const LandingPage = () => {
       {/* Basic Plan */}
       <div className="border border-gray-200 rounded-xl p-8 shadow hover:shadow-lg transition-all">
         <h3 className="text-xl font-semibold text-gray-800 mb-4">Basic</h3>
-        <p className="text-4xl font-bold text-gray-900 mb-4">$0</p>
+        <p className="text-4xl font-bold text-gray-900 mb-4">$20</p>
         <p className="text-gray-600 mb-6">Perfect for small teams getting started.</p>
         <ul className="text-sm text-left text-gray-700 space-y-2 mb-6">
           <li>✔️ 1 Project</li>
@@ -149,7 +149,7 @@ const LandingPage = () => {
       {/* Pro Plan */}
       <div className="border-2 border-blue-600 rounded-xl p-8 shadow-xl hover:shadow-2xl transition-all scale-105">
         <h3 className="text-xl font-semibold text-blue-600 mb-4">Pro</h3>
-        <p className="text-4xl font-bold text-gray-900 mb-4">$29</p>
+        <p className="text-4xl font-bold text-gray-900 mb-4">$50</p>
         <p className="text-gray-600 mb-6">For growing teams and full access.</p>
         <ul className="text-sm text-left text-gray-700 space-y-2 mb-6">
           <li>✔️ Unlimited Projects</li>
@@ -183,7 +183,7 @@ const LandingPage = () => {
   <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
     
     <div>
-      <h3 className="text-lg font-semibold mb-3">ProcurementPro</h3>
+      <h3 className="text-lg font-semibold mb-3">ProcuraHub</h3>
       <p className="text-gray-400 text-sm">
         Streamline your procurement process with ease.
       </p>
@@ -211,13 +211,14 @@ const LandingPage = () => {
       <h4 className="font-semibold mb-2">Contact</h4>
       <ul className="text-gray-400 space-y-1 text-sm">
         <li>Email: support@procurepro.com</li>
-        <li>Phone: +123 456 7890</li>
+        <li>Phone: +233 205-296-583</li>
+        <li>Accra, Ghana.</li>
       </ul>
     </div>
   </div>
 
   <div className="text-center text-gray-500 text-sm mt-10">
-    &copy; {new Date().getFullYear()} ProcurementPro. All rights reserved.
+    &copy; {new Date().getFullYear()} ProcuraHub. All rights reserved.
   </div>
 </footer>
     </div>
