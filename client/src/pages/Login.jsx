@@ -23,9 +23,36 @@ const Login = () => {
     termsAccepted: false
   });
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
+    if(!loginData.email.trim() || !loginData.password.trim() || !registerData.workEmail.trim()) return alert("All fields are required")
+
     setIsLoading(true);
+
+      try {
+        
+        const response = await fetch("", {
+        method:"POST",
+        headers: {
+          "Content-Type":"application/json"
+        },
+        body: JSON.stringify(registerData),
+        credentials:"include"
+      })
+
+      if(!response.ok){
+        throw new Error("An error occcured")
+      }
+
+      const data = await response.json()
+      console.log(data)
+
+    } catch (error) {
+      console.log(error)
+    }finally{
+      setIsLoading(false);
+    }
 
     setTimeout(() => {
       console.log("Login submitted", loginData);
@@ -35,6 +62,11 @@ const Login = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+
+      if(!registerData.fullName.trim() || !registerData.company.trim() || !registerData.workEmail.trim() || !registerData.role.trim() || !registerData.password.trim() || !registerData.confirmPassword.trim() || !registerData.termsAccepted) return alert("All fields are required")
+
+      if(!registerData.password !== !registerData.confirmPassword) return alert("Password does not match")
+
     setIsLoading(true);
 
     setTimeout(() => {
@@ -56,7 +88,7 @@ const Login = () => {
           <button
             onClick={() => setIsLogin(true)}
             className={`flex-1 px-4 py-2 cursor-pointer font-medium rounded-md transition-all duration-200 ${
-              isLogin ? 'bg-white text-black shadow' : 'bg-transparent'
+              isLogin ? '!bg-white text-black shadow' : '!bg-transparent'
             }`}
           >
             Login
@@ -64,7 +96,7 @@ const Login = () => {
           <button
             onClick={() => setIsLogin(false)}
             className={`flex-1 px-4 py-2 cursor-pointer font-medium rounded-md transition-all duration-200 ${
-              !isLogin ? 'bg-white text-black shadow' : 'bg-transparent'
+              !isLogin ? '!bg-white text-black shadow' : '!bg-transparent'
             }`}
           >
             Register
@@ -94,7 +126,7 @@ const Login = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-black text-white font-semibold py-2 rounded-md hover:bg-black/80"
+                className="w-full cursor-pointer !bg-black text-white font-semibold py-2 rounded-md hover:!bg-black/80"
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center gap-2">
@@ -146,7 +178,6 @@ const Login = () => {
                 className="w-full px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
               />
 
-              {/* Role selection */}
               <div className="space-y-2">
                 <label className="block text-sm font-medium">Role</label>
                 <div className="flex gap-4">
@@ -181,7 +212,7 @@ const Login = () => {
 
               <button
                 type="submit"
-                className="w-full bg-black text-white font-semibold py-2 rounded-md hover:bg-black/80"
+                className="w-full cursor-pointer !bg-black text-white font-semibold py-2 rounded-md hover:!bg-black/80"
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center gap-2">
@@ -204,7 +235,7 @@ const Login = () => {
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover z-0 rounded-sm"
         />
-        <div className="absolute inset-0 bg-black opacity-50 z-10 rounded-sm" />
+        <div className="absolute inset-0 !bg-black opacity-50 z-10 rounded-sm" />
         <div className="z-20 text-center text-white">
           <img src={Logo} alt="Logo" className="w-16 mx-auto mb-4" />
           <h2 className="text-2xl font-semibold">

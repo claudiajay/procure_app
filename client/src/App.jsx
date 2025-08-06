@@ -1,8 +1,12 @@
-import LandingPage from './pages/LandingPage';
+
+import PageRouter from './Router/PageRouter';
 
 function App() {
   return (
-    <LandingPage />
+    <div>
+      <PageRouter />
+    </div>
+    
   );
 }
 
