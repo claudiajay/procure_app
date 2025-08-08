@@ -77,13 +77,11 @@ const Login = () => {
 
   return (
     <div className="w-full flex p-4 justify-between min-h-screen font-sans">
-      {/* Left side: Form */}
-      <div className="w-full flex gap-3.5 flex-col justify-center items-center bg-white p-8">
+            <div className="w-full flex gap-3.5 flex-col justify-center items-center bg-white p-8">
         <h2 className="text-2xl font-bold mb-6">
           {isLogin ? 'Login' : 'Create Account'}
         </h2>
-
-        {/* Tabs */}
+        
         <div className="flex mb-6 gap-2 bg-blue-600/40 p-1 rounded-md w-full max-w-md mx-auto">
           <button
             onClick={() => setIsLogin(true)}
@@ -102,8 +100,7 @@ const Login = () => {
             Register
           </button>
         </div>
-
-        {/* Form */}
+        
         <div className="w-full max-w-md">
           {isLogin ? (
             <form className="space-y-4" onSubmit={handleLogin}>
@@ -195,8 +192,7 @@ const Login = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Terms */}
+              
               <label className="flex items-center text-sm">
                 <input
                   type="checkbox"
@@ -227,8 +223,7 @@ const Login = () => {
           )}
         </div>
       </div>
-
-      {/* Right side: Banner */}
+      
       <div className="w-full max-md:hidden flex justify-center items-center p-10 relative">
         <img
           src={isLogin ? LoginBg : RegisterBg}
