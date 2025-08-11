@@ -6,7 +6,7 @@ const createOrder = async (req, res) => {
     const order = await Order.create({ requestId, supplierId, deliveryDate });
     res.status(201).json(order);
   } catch (err) {
-    res.status(500).json({msg: err.message});
+    res.status(500).json({msg: err.message}); 
   }
 };
 

@@ -6,7 +6,7 @@ const requestSchema = new mongoose.Schema(
     itemName: String,
     quantity: Number,
     reason: String,
-    status: {
+    status: { 
       type: String,
       enum: ["Pending", "Approved", "Rejected", "Ordered"],
       default: "Pending",

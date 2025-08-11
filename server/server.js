@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db.js');
 const Sentry = require('@sentry/node');
-
+const path = require('path');
 // Initialize Express
 const app = express();
 
@@ -13,12 +13,14 @@ Sentry.setupExpressErrorHandler(app);
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 app.use('/api/requests', require('./routes/requestRoutes'));
 app.use('/api/suppliers', require('./routes/supplierRoutes'));
+app.use('/api/profile', require('./routes/profileRoutes.js'));
 
 app.get('/', (req, res) => {
   res.send("API is working");
