@@ -1,8 +1,9 @@
 import React from "react";
 import {Routes, Route} from 'react-router-dom';
-import Dashboard from "./pages/Dashboard";
+
 import MakeRequest from "./pages/MakeRequest";
 import Login from "./pages/Login";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 const App = () => {
   return (
