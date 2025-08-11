@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Sidenav from "./sidenav"
 import NewDashboard from "../../pages/Dashboard/NewDashboard"
+import MyRequests from "../../pages/MakeRequest"
 
 function Dashboard () {
     const [activeTab, setActiveTab] = useState('dashboard')
@@ -11,7 +12,7 @@ function Dashboard () {
 
                 <div className="text-black w-full">
                     {activeTab == "dashboard" && <NewDashboard />} 
-                    {activeTab == "request" && 'REQUESTS'}
+                    {activeTab == "request" && <MyRequests />}
                     {activeTab == "notification" && 'NOTIFICATION'}
                 </div>
             </div>
