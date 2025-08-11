@@ -16,12 +16,6 @@ function Sidenav({activeTab, setActiveTab}) {
         label: "My Requests",
         link: "request",
         },
-        {
-        id: 3,
-        icon: "Bell",
-        label: "Notification",
-        link: "notification",
-        },
     ];
 
     return (
@@ -42,7 +36,7 @@ function Sidenav({activeTab, setActiveTab}) {
                                 <div
                                     className={`flex items-center gap-3 px-3 py-2 rounded-md transition ${
                                         isActive
-                                        ? "bg-white text-black font-semibold"
+                                        ? "bg-blue-700 text-white font-semibold"
                                         : "hover:bg-white/10"
                                     }`}
                                 >
@@ -57,11 +51,12 @@ function Sidenav({activeTab, setActiveTab}) {
             </nav>
 
             <div className="flex items-center gap-3 p-3 bg-white/10 rounded">
-                <img
+                {/* <img
                     src="/profile.jpg"
                     alt="Profile"
                     className="w-10 h-10 rounded-full object-cover"
-                />
+                /> */}
+                <div className="w-8 h-8 rounded-full bg-blue-500"></div>
                 <div>
                     <p className="text-sm font-medium">John Doe</p>
                     <p className="text-xs text-gray-300">Employee</p>

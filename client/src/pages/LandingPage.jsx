@@ -3,6 +3,7 @@ import HeroDashboardImg from '../assets/dashboard-preview.jpg';
 import SeeInActionImg from "../assets/see-in-action.jpg";
 import { Link } from 'react-router-dom'
 import Logo from '../assets/logo1.png'
+import Features from '../components/Features';
 
 const LandingPage = () => {
   return (
@@ -21,7 +22,6 @@ const LandingPage = () => {
       
       <section className="!bg-gradient-to-r from-blue-900 to-blue-600 text-white py-20 px-10">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-          {/* Text */}
           <div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Effortless Procurement for <br /> <span className="text-yellow-400">Modern Teams</span>
@@ -30,14 +30,6 @@ const LandingPage = () => {
               Transform your procurement workflow with intelligent request management,
               approval tracking, and budget analytics. Built for modern teams.
             </p>
-            <div className="flex space-x-4">
-              <Link to={'/login'} className="!bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded text-white font-semibold">
-                Get Started
-              </Link>
-              <button className="!bg-green-500 hover:bg-green-600 px-6 py-3 rounded text-white font-semibold">
-                See Demo
-              </button>
-            </div>
           </div>
          
           <div>
@@ -62,37 +54,7 @@ const LandingPage = () => {
     </p>
   </div>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-       <div className="!bg-gray-50 p-6 rounded-xl shadow hover:shadow-md transition">
-      <h3 className="text-xl font-semibold text-gray-800 mb-2">Approval Flow</h3>
-      <p className="text-gray-600">Streamlined approval process with automated workflows and notifications.</p>
-    </div>
-   
-    <div className="!bg-gray-50 p-6 rounded-xl shadow hover:shadow-md transition">
-      <h3 className="text-xl font-semibold text-gray-800 mb-2">Vendor Tracking</h3>
-      <p className="text-gray-600">View vendor performance with performance insights and ratings.</p>
-    </div>
-    
-    <div className="!bg-gray-50 p-6 rounded-xl shadow hover:shadow-md transition">
-      <h3 className="text-xl font-semibold text-gray-800 mb-2">Budget Analytics</h3>
-      <p className="text-gray-600">Real-time spending insights with budget monitoring and reporting.</p>
-    </div>
-    
-    <div className="!bg-gray-50 p-6 rounded-xl shadow hover:shadow-md transition">
-      <h3 className="text-xl font-semibold text-gray-800 mb-2">Request Management</h3>
-      <p className="text-gray-600">Built-in compliance checks and tools for all requests.</p>
-    </div>
-    
-    <div className="!bg-gray-50 p-6 rounded-xl shadow hover:shadow-md transition">
-      <h3 className="text-xl font-semibold text-gray-800 mb-2">Real-time Tracking</h3>
-      <p className="text-gray-600">Track orders from request to delivery in real time.</p>
-    </div>
-    
-    <div className="!bg-gray-50 p-6 rounded-xl shadow hover:shadow-md transition">
-      <h3 className="text-xl font-semibold text-gray-800 mb-2">Smart Insights</h3>
-      <p className="text-gray-600">Use data to improve vendor relationships and cut costs.</p>
-    </div>
-  </div>
+    <Features />
 </section>
 
 <section className="py-20 !bg-gray-100 px-6">
