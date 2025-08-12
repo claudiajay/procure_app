@@ -1,5 +1,6 @@
 import React from "react";
 import { Bell, Plus } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const NewDashboard = () => {
   const requests = [
@@ -91,9 +92,9 @@ const NewDashboard = () => {
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <button className="flex items-center !bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer">
+            <Link to={"/new-request"} className="flex items-center !bg-blue-600 !text-white px-4 py-2 rounded-lg cursor-pointer">
               <Plus className="w-4 h-4 mr-2" /> New Request
-            </button>
+            </Link>
             <Bell className="w-6 h-6 text-gray-600" />
           </div>
         </div>
@@ -166,7 +167,7 @@ const NewDashboard = () => {
         </div>
 
         <div className="grid grid-cols-3 gap-4">
-          <div className="bg-blue-500 text-white p-4 rounded-lg shadow">
+          <div className="bg-blue-500 text-white p-4 rounded-lg shadow cursor-pointer">
             <p className="font-bold">Create New Request</p>
             <p className="text-sm">
               Submit a new purchase request for approval.

@@ -1,4 +1,3 @@
-// src/pages/NewRequest.jsx
 import React, { useState } from "react";
 
 export default function RequestList() {
@@ -26,7 +25,7 @@ export default function RequestList() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    // send to backend later
+    //backend 
   };
 
   return (
@@ -35,8 +34,7 @@ export default function RequestList() {
       <p className="text-gray-500 mb-6">Submit a new request for approval.</p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Item Name */}
-        <div>
+              <div>
           <label className="block font-medium">Item Name</label>
           <input
             type="text"
@@ -47,8 +45,7 @@ export default function RequestList() {
             className="w-full p-2 border rounded"
           />
         </div>
-
-        {/* Preferred Vendor */}
+      
         <div>
           <label className="block font-medium">Preferred Vendor</label>
           <input
@@ -60,8 +57,7 @@ export default function RequestList() {
             className="w-full p-2 border rounded"
           />
         </div>
-
-        {/* Quantity */}
+        
         <div>
           <label className="block font-medium">Quantity</label>
           <input
@@ -74,7 +70,6 @@ export default function RequestList() {
           />
         </div>
 
-        {/* Department */}
         <div>
           <label className="block font-medium">Department</label>
           <div className="space-y-2">
@@ -93,7 +88,6 @@ export default function RequestList() {
           </div>
         </div>
 
-        {/* Business Reason */}
         <div>
           <label className="block font-medium">Business Reason</label>
           <textarea
@@ -106,7 +100,6 @@ export default function RequestList() {
           />
         </div>
 
-        {/* Additional Description */}
         <div>
           <label className="block font-medium">Additional Description</label>
           <textarea
@@ -118,23 +111,24 @@ export default function RequestList() {
             maxLength="500"
           />
         </div>
+            <div className="p-4 border rounded-lg bg-gray-50">
+              <label className="block font-medium mb-2">Attachments</label>
+              <input
+                type="file"
+                onChange={handleFileChange}
+                multiple
+                accept=".pdf,.doc,.docx,.jpg,.png"
+                className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 
+                          file:rounded-lg file:border-0 file:text-sm file:font-semibold
+                          file:bg-blue-50 file:text-blue-700
+                          hover:file:bg-blue-100 cursor-pointer"
+              />
+            </div>
 
-        {/* Attachments */}
-        <div>
-          <label className="block font-medium">Attachments</label>
-          <input
-            type="file"
-            onChange={handleFileChange}
-            multiple
-            accept=".pdf,.doc,.docx,.jpg,.png"
-            className="w-full"
-          />
-        </div>
 
-        {/* Submit */}
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="!bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
         >
           Submit Request
         </button>

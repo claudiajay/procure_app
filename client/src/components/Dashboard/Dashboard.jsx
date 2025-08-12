@@ -13,7 +13,6 @@ function Dashboard () {
                 <div className="text-black w-full">
                     {activeTab == "dashboard" && <NewDashboard />} 
                     {activeTab == "request" && <MyRequests />}
-                    {activeTab == "notification" && 'NOTIFICATION'}
                 </div>
             </div>
         </div>
