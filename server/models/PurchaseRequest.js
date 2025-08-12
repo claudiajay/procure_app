@@ -8,7 +8,7 @@ const requestSchema = new mongoose.Schema(
     reason: String,
     status: { 
       type: String,
-      enum: ["Pending", "Approved", "Rejected", "Ordered"],
+      enum: ["Pending", "Approved", "Rejected"],
       default: "Pending",
     },
     approvedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
