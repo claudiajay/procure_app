@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Bell, Plus } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const MyRequests = () => {
+const MakeRequest = () => {
   const requests = [
     {
       id: "REQ-001",
@@ -69,7 +70,6 @@ const MyRequests = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
-
       <main className="flex-1 p-6">
         <div className="flex justify-between items-center mb-6">
           <div>
@@ -79,9 +79,12 @@ const MyRequests = () => {
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <button className="flex items-center !bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer">
+            <Link
+              to={"/new-request"}
+              className="flex items-center !bg-blue-600 !text-white px-4 py-2 rounded-lg cursor-pointer"
+            >
               <Plus className="w-4 h-4 mr-2" /> New Request
-            </button>
+            </Link>
             <Bell className="w-6 h-6 text-gray-600" />
           </div>
         </div>
@@ -112,7 +115,7 @@ const MyRequests = () => {
                 <th className="py-2">DEPARTMENT</th>
                 <th className="py-2">STATUS</th>
                 <th className="py-2">DATE</th>
-                <th className="py-2">Actions</th>
+                <th className="py-2">ACTIONS</th>
               </tr>
             </thead>
             <tbody>
@@ -122,32 +125,30 @@ const MyRequests = () => {
                   <td className="py-2">{req.item}</td>
                   <td className="py-2">{req.amount}</td>
                   <td className="py-2">{req.department}</td>
-                  <td className={`py-2 font-semibold ${getStatusColor(req.status)}`}>
+                  <td
+                    className={`py-2 font-semibold ${getStatusColor(
+                      req.status
+                    )}`}
+                  >
                     {req.status}
                   </td>
                   <td className="py-2">{req.date}</td>
-                  <td className="py-2 text-blue-500 cursor-pointer">View Detail</td>
+                  <td className="py-2">
+                    <Link
+                      to={`/requests/${req.id}`}
+                      className="text-blue-500 cursor-pointer"
+                    >
+                      View Detail
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-blue-500 text-white p-4 rounded-lg shadow">
-            <p className="font-bold">Create New Request</p>
-            <p className="text-sm">
-              Submit a new purchase request for approval.
-            </p>
-          </div>
-          <div className="bg-purple-500 text-white p-4 rounded-lg shadow">
-            <p className="font-bold">Notification</p>
-            <p className="text-sm">Check updates on your requests.</p>
-          </div>
         </div>
       </main>
     </div>
   );
 };
 
-export default MyRequests;
+export default MakeRequest;

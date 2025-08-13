@@ -166,7 +166,7 @@ const NewDashboard = () => {
           </table>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        {/* <div className="grid grid-cols-3 gap-4">
           <div className="bg-blue-500 text-white p-4 rounded-lg shadow cursor-pointer">
             <p className="font-bold">Create New Request</p>
             <p className="text-sm">
@@ -183,7 +183,7 @@ const NewDashboard = () => {
             <p className="font-bold">Notification</p>
             <p className="text-sm">Check updates on your requests.</p>
           </div>
-        </div>
+        </div> */}
       </main>
     </div>
   );
