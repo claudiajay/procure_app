@@ -103,22 +103,22 @@ const NewDashboard = () => {
         <div className="grid grid-cols-4 gap-4 mb-6">
           <div className="bg-white p-4 rounded-lg shadow">
             <p className="text-gray-500">Pending Requests</p>
-            <h2 className="text-2xl font-bold">8</h2>
+            <h2 className="text-2xl font-bold">2</h2>
             <p className="text-sm text-orange-500">+12% from last month</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow">
             <p className="text-gray-500">Approved Requests</p>
-            <h2 className="text-2xl font-bold">12</h2>
+            <h2 className="text-2xl font-bold">1</h2>
             <p className="text-sm text-green-500">+8% from last month</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow">
             <p className="text-gray-500">Rejected Requests</p>
-            <h2 className="text-2xl font-bold">4</h2>
+            <h2 className="text-2xl font-bold">1</h2>
             <p className="text-sm text-red-500">-3% from last month</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow">
             <p className="text-gray-500">Total Requests</p>
-            <h2 className="text-2xl font-bold">24</h2>
+            <h2 className="text-2xl font-bold">5</h2>
             <p className="text-sm text-blue-500">+15% from last month</p>
           </div>
         </div>
