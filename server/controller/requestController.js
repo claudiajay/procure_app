@@ -1,4 +1,4 @@
-const Request = require('../models/PurchaseRequest');
+const Request = require('../models/Request');
 
 // Create a new purchase request
 const createRequest = async (req, res) => {

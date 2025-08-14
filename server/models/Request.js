@@ -1,10 +1,11 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const requestSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    itemName: String,
-    quantity: Number,
+    itemName: { type: String, required: true },
+    quantity: { type: Number, required: true },
+    estimatedPricePerUnit: { type: Number }, // optional for budgeting
     reason: String,
     status: { 
       type: String,
@@ -16,4 +17,5 @@ const requestSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("PurchaseRequest", requestSchema);
+
+module.exports = mongoose.model("Request", requestSchema);
