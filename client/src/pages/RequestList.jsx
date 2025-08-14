@@ -11,21 +11,41 @@ export default function RequestList() {
     attachments: [],
   });
 
+  const [errors, setErrors] = useState({});
   const departments = ["I.T Department", "HR Department", "Marketing Department"];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, attachments: [...e.target.files] });
+    const files = [...e.target.files];
+    setFormData({ ...formData, attachments: files });
+    setErrors({ ...errors, attachments: "" });
+  };
+
+  const validateForm = () => {
+    let newErrors = {};
+
+    if (!formData.itemName.trim()) newErrors.itemName = "Item name is required.";
+    if (!formData.preferredVendor.trim()) newErrors.preferredVendor = "Preferred vendor is required.";
+    if (!formData.quantity || formData.quantity < 1) newErrors.quantity = "Quantity must be at least 1.";
+    if (!formData.department) newErrors.department = "Please select a department.";
+    if (!formData.businessReason.trim()) newErrors.businessReason = "Business reason is required.";
+    if (!formData.additionalDescription.trim()) newErrors.additionalDescription = "Additional description is required.";
+    if (formData.attachments.length === 0) newErrors.attachments = "Please upload at least one file.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
     console.log("Form submitted:", formData);
-    //backend 
+    // Backend call here
   };
 
   return (
@@ -34,7 +54,8 @@ export default function RequestList() {
       <p className="text-gray-500 mb-6">Submit a new request for approval.</p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
+     
+        <div>
           <label className="block font-medium">Item Name</label>
           <input
             type="text"
@@ -42,10 +63,11 @@ export default function RequestList() {
             value={formData.itemName}
             onChange={handleChange}
             placeholder="e.g., Dell Laptop XPS 13"
-            className="w-full p-2 border rounded"
+            className={`w-full p-2 border rounded ${errors.itemName ? "border-red-500" : ""}`}
           />
+          {errors.itemName && <p className="text-red-500 text-sm">{errors.itemName}</p>}
         </div>
-      
+
         <div>
           <label className="block font-medium">Preferred Vendor</label>
           <input
@@ -54,10 +76,11 @@ export default function RequestList() {
             value={formData.preferredVendor}
             onChange={handleChange}
             placeholder="e.g., Dell Inc."
-            className="w-full p-2 border rounded"
+            className={`w-full p-2 border rounded ${errors.preferredVendor ? "border-red-500" : ""}`}
           />
+          {errors.preferredVendor && <p className="text-red-500 text-sm">{errors.preferredVendor}</p>}
         </div>
-        
+
         <div>
           <label className="block font-medium">Quantity</label>
           <input
@@ -66,8 +89,9 @@ export default function RequestList() {
             value={formData.quantity}
             onChange={handleChange}
             min="1"
-            className="w-full p-2 border rounded"
+            className={`w-full p-2 border rounded ${errors.quantity ? "border-red-500" : ""}`}
           />
+          {errors.quantity && <p className="text-red-500 text-sm">{errors.quantity}</p>}
         </div>
 
         <div>
@@ -86,6 +110,7 @@ export default function RequestList() {
               </label>
             ))}
           </div>
+          {errors.department && <p className="text-red-500 text-sm">{errors.department}</p>}
         </div>
 
         <div>
@@ -95,9 +120,10 @@ export default function RequestList() {
             value={formData.businessReason}
             onChange={handleChange}
             placeholder="Explain why this purchase is necessary for your work..."
-            className="w-full p-2 border rounded"
+            className={`w-full p-2 border rounded ${errors.businessReason ? "border-red-500" : ""}`}
             maxLength="500"
           />
+          {errors.businessReason && <p className="text-red-500 text-sm">{errors.businessReason}</p>}
         </div>
 
         <div>
@@ -107,24 +133,26 @@ export default function RequestList() {
             value={formData.additionalDescription}
             onChange={handleChange}
             placeholder="Any additional details..."
-            className="w-full p-2 border rounded"
+            className={`w-full p-2 border rounded ${errors.additionalDescription ? "border-red-500" : ""}`}
             maxLength="500"
           />
+          {errors.additionalDescription && <p className="text-red-500 text-sm">{errors.additionalDescription}</p>}
         </div>
-            <div className="p-4 border rounded-lg bg-gray-50">
-              <label className="block font-medium mb-2">Attachments</label>
-              <input
-                type="file"
-                onChange={handleFileChange}
-                multiple
-                accept=".pdf,.doc,.docx,.jpg,.png"
-                className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 
-                          file:rounded-lg file:border-0 file:text-sm file:font-semibold
-                          file:bg-blue-50 file:text-blue-700
-                          hover:file:bg-blue-100 cursor-pointer"
-              />
-            </div>
-
+       
+        <div className="p-4 border rounded-lg bg-gray-50">
+          <label className="block font-medium mb-2">Attachments</label>
+          <input
+            type="file"
+            onChange={handleFileChange}
+            multiple
+            accept=".pdf,.doc,.docx,.jpg,.png"
+            className={`block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 
+              file:rounded-lg file:border-0 file:text-sm file:font-semibold
+              file:bg-blue-50 file:text-blue-700
+              hover:file:bg-blue-100 cursor-pointer ${errors.attachments ? "border border-red-500" : ""}`}
+          />
+          {errors.attachments && <p className="text-red-500 text-sm">{errors.attachments}</p>}
+        </div>
 
         <button
           type="submit"

@@ -1,5 +1,5 @@
 
-import HeroDashboardImg from '../assets/dashboard-preview.jpg';
+import HeroDashboardImg from '../assets/dashboard-preview2.jpg';
 import SeeInActionImg from "../assets/see-in-action.jpg";
 import { Link } from 'react-router-dom'
 import Logo from '../assets/logo1.png'
@@ -12,11 +12,11 @@ const LandingPage = () => {
         <div className="text-2xl font-bold text-blue-700">
             <img src={Logo} alt="logo" width={50} />
         </div>
-        <ul className="flex space-x-6 text-gray-700 font-medium">
+        {/* <ul className="flex space-x-6 text-gray-700 font-medium">
           <li><a href="#">Features</a></li>
           <li><a href="#">Demo</a></li>
           <li><a href="#">Pricing</a></li>
-        </ul>
+        </ul> */}
         <Link to={"/login"} className="text-blue-700 font-semibold">Sign In</Link>
       </nav>
       
@@ -36,7 +36,7 @@ const LandingPage = () => {
             <div className="w-full  !bg-white rounded-lg shadow-lg overflow-hidden">
             <img
                 src={HeroDashboardImg}
-                alt="dashboard preview"
+                alt="dashboard preview2"
                 className="w-full h-auto object-cover"
             />
             </div>

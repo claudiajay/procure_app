@@ -5,8 +5,7 @@ import { ArrowLeft } from "lucide-react";
 const RequestDetails = () => {
   const { id } = useParams();
 
-  // Simulating fetching data based on ID
-  const requests = [
+    const requests = [
     {
       id: "REQ-001",
       item: "Dell laptops XPS 13",
