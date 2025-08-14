@@ -7,7 +7,9 @@ const getOrders = async (req, res) => {
       .lean();
 
 
-    const approvedOrders = orders.filter(order => order.request !== null);
+    const approvedOrders = orders.filter(
+      order => order.request && order.request.status === "Approved"
+    );
     res.json(approvedOrders);
   } catch (err) {
     res.status(500).json({message: err.message})
