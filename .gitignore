@@ -1,0 +1,19 @@
+# Ignore node_modules in both client and server
+client/node_modules/
+server/node_modules/
+
+# Ignore environment variables in any folder
+**/.env
+
+# Ignore log files
+*.log
+npm-debug.log*
+
+# Ignore build/dist folders
+client/build/
+client/dist/
+server/build/
+server/dist/
+
+# Ignore system files
+.DS_Store
