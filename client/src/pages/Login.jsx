@@ -86,7 +86,7 @@ const Login = () => {
       );
       console.log('Registration success:', response.data);
       alert('Registration successful! Please log in.');
-      setIsLogin(true); // Switch to login form after success
+      setIsLogin(true); 
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.message || 'Registration failed');
@@ -97,13 +97,11 @@ const Login = () => {
 
   return (
     <div className="w-full flex p-4 justify-between min-h-screen font-sans">
-      {/* Left Section */}
       <div className="w-full flex gap-3.5 flex-col justify-center items-center bg-white p-8">
         <h2 className="text-2xl font-bold mb-6">
           {isLogin ? 'Login' : 'Create Account'}
         </h2>
 
-        {/* Switch Buttons */}
         <div className="flex mb-6 gap-2 bg-blue-600/40 p-1 rounded-md w-full max-w-md mx-auto">
           <button
             onClick={() => setIsLogin(true)}
@@ -122,8 +120,7 @@ const Login = () => {
             Register
           </button>
         </div>
-
-        {/* Forms */}
+ 
         <div className="w-full max-w-md">
           {isLogin ? (
             <form className="space-y-4" onSubmit={handleLogin}>
@@ -227,7 +224,6 @@ const Login = () => {
                 className="w-full px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
               />
 
-              {/* Role Selection */}
               <div className="space-y-2">
                 <label className="block text-sm font-medium">Role</label>
                 <div className="flex gap-4">
@@ -251,7 +247,6 @@ const Login = () => {
                 </div>
               </div>
 
-              {/* Terms Checkbox */}
               <label className="flex items-center text-sm">
                 <input
                   type="checkbox"
@@ -288,7 +283,6 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Right Section */}
       <div className="w-full max-md:hidden flex justify-center items-center p-10 relative">
         <img
           src={isLogin ? LoginBg : RegisterBg}

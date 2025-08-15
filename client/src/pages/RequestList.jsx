@@ -13,6 +13,10 @@ export default function RequestList() {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
   const departments = ["I.T Department", "HR Department", "Marketing Department"];
 
   const handleChange = (e) => {
@@ -29,7 +33,6 @@ export default function RequestList() {
 
   const validateForm = () => {
     let newErrors = {};
-
     if (!formData.itemName.trim()) newErrors.itemName = "Item name is required.";
     if (!formData.preferredVendor.trim()) newErrors.preferredVendor = "Preferred vendor is required.";
     if (!formData.quantity || formData.quantity < 1) newErrors.quantity = "Quantity must be at least 1.";
@@ -37,16 +40,51 @@ export default function RequestList() {
     if (!formData.businessReason.trim()) newErrors.businessReason = "Business reason is required.";
     if (!formData.additionalDescription.trim()) newErrors.additionalDescription = "Additional description is required.";
     if (formData.attachments.length === 0) newErrors.attachments = "Please upload at least one file.";
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setSuccessMsg("");
+    setErrorMsg("");
+
     if (!validateForm()) return;
-    console.log("Form submitted:", formData);
-    // Backend call here
+
+    setLoading(true);
+
+    try {
+      const payload = new FormData();
+      payload.append("itemName", formData.itemName);
+      payload.append("preferredVendor", formData.preferredVendor);
+      payload.append("quantity", formData.quantity);
+      payload.append("department", formData.department);
+      payload.append("businessReason", formData.businessReason);
+      payload.append("additionalDescription", formData.additionalDescription);
+
+      formData.attachments.forEach((file) => {
+        payload.append("attachments", file);
+      });
+
+      const response = await createRequest("", payload);
+
+      setSuccessMsg("Request submitted successfully!");
+      console.log("API Response:", response);
+      setFormData({
+        itemName: "",
+        preferredVendor: "",
+        quantity: 1,
+        department: "",
+        businessReason: "",
+        additionalDescription: "",
+        attachments: [],
+      });
+    } catch (error) {
+      setErrorMsg("Failed to submit request. Please try again.");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -54,8 +92,10 @@ export default function RequestList() {
       <h1 className="text-2xl font-bold mb-1">New Requests</h1>
       <p className="text-gray-500 mb-6">Submit a new request for approval.</p>
 
+      {successMsg && <p className="text-green-600">{successMsg}</p>}
+      {errorMsg && <p className="text-red-600">{errorMsg}</p>}
+
       <form onSubmit={handleSubmit} className="space-y-4">
-     
         <div>
           <label className="block font-medium">Item Name</label>
           <input
@@ -139,7 +179,7 @@ export default function RequestList() {
           />
           {errors.additionalDescription && <p className="text-red-500 text-sm">{errors.additionalDescription}</p>}
         </div>
-       
+
         <div className="p-4 border rounded-lg bg-gray-50">
           <label className="block font-medium mb-2">Attachments</label>
           <input
@@ -157,9 +197,32 @@ export default function RequestList() {
 
         <button
           type="submit"
-          className="!bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
-          onClick={createRequest("", formData)}>
-          Submit Request
+          className="!bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer flex items-center gap-2"
+          disabled={loading}
+        >
+          {loading && (
+            <svg
+              className="animate-spin h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v8z"
+              ></path>
+            </svg>
+          )}
+          {loading ? "Submitting..." : "Submit Request"}
         </button>
       </form>
     </div>
