@@ -1,9 +1,10 @@
+// src/pages/Login.jsx
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Loader } from 'lucide-react';
 import Logo from '../assets/logo1.png';
 import LoginBg from '../assets/journal entries.png';
 import RegisterBg from '../assets/premium photo.png';
+import { register, login } from "../services/ProcuraHub.js";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,27 +27,23 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     if (!loginData.email.trim() || !loginData.password.trim()) {
       return alert('Email and password are required');
     }
 
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        'http://procure-app-latest.onrender.com/api/auth/login',
-        {
-          email: loginData.email,
-          password: loginData.password,
-        },
-        { withCredentials: true }
-      );
-      console.log('Login success:', response.data);
+      const result = await login({
+        email: loginData.email,
+        password: loginData.password,
+      });
+      console.log('Login success:', result);
+      localStorage.setItem('token', result.token);
       alert('Login successful!');
-      // TODO: Redirect user to dashboard after login
+      // TODO: Redirect to dashboard
     } catch (error) {
       console.error(error);
-      alert(error.response?.data?.message || 'Login failed');
+      alert(error.message || 'Login failed');
     } finally {
       setIsLoading(false);
     }
@@ -54,7 +51,6 @@ const Login = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
     if (
       !registerData.fullName.trim() ||
       !registerData.company.trim() ||
@@ -73,23 +69,13 @@ const Login = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        'http://procure-app-latest.onrender.com/api/auth/register',
-        {
-          fullName: registerData.fullName,
-          company: registerData.company,
-          email: registerData.workEmail,
-          password: registerData.password,
-          role: registerData.role,
-        },
-        { withCredentials: true }
-      );
-      console.log('Registration success:', response.data);
+      const result = await register(registerData);
+      console.log('Registration success:', result);
       alert('Registration successful! Please log in.');
-      setIsLogin(true); 
+      setIsLogin(true);
     } catch (error) {
       console.error(error);
-      alert(error.response?.data?.message || 'Registration failed');
+      alert(error.message || 'Registration failed');
     } finally {
       setIsLoading(false);
     }
@@ -120,7 +106,7 @@ const Login = () => {
             Register
           </button>
         </div>
- 
+
         <div className="w-full max-w-md">
           {isLogin ? (
             <form className="space-y-4" onSubmit={handleLogin}>

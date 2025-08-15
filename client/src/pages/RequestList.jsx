@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createRequest } from "../services/ProcuraHubClient";
+import { createRequest } from "../services/ProcuraHub";
 
 export default function RequestList() {
   const [formData, setFormData] = useState({
