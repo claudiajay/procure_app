@@ -1,0 +1,20 @@
+# Base image
+FROM node:18
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files first (better caching)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --production
+
+#Copy the rest of the code 
+COPY . .
+
+#Expose PORT 
+EXPOSE 6000
+
+#Run the app
+CMD ["node", "server.js"]

@@ -7,10 +7,12 @@ const {
   getAllRequests,
   approveRequest,
   rejectRequest,
+  getApprovedRequests
 } = require('../controller/requestController'); 
 
 router.post('/createRequest', auth, createRequest);
 router.get('/getAllRequests', auth, getAllRequests);
+router.get('/getApprovedRequests', auth, getApprovedRequests);
 router.patch('/:id/approve', auth, approveRequest);
 router.patch('/:id/reject', auth, rejectRequest);
 

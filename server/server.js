@@ -11,7 +11,12 @@ Sentry.setupExpressErrorHandler(app);
 // move this above route usage if needed
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -19,6 +24,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/requests', require('./routes/requestRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
+app.use('/api/dashboard', require('./routes/dashboardRoutes'))
 
 
 app.get('/', (req, res) => {

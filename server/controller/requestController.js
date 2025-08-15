@@ -98,9 +98,31 @@ const rejectRequest = async (req, res) => {
   }
 };
 
+
+// Get all approved requests
+const getApprovedRequests = async (req, res) => {
+  try {
+    const approvedRequests = await Request.find({ status: 'Approved' })
+      .populate('userId', 'name')
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      count: approvedRequests.length,
+      data: approvedRequests,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, msg: err.message });
+  }
+};
+
+
+
 module.exports = {
   createRequest,
   getAllRequests,
   approveRequest,
   rejectRequest,
-};
+  getApprovedRequests, 
+
+}
