@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createRequest } from "../services/ProcuraHubClient";
 
 export default function RequestList() {
   const [formData, setFormData] = useState({
@@ -157,7 +158,7 @@ export default function RequestList() {
         <button
           type="submit"
           className="!bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
-        >
+          onClick={createRequest("", formData)}>
           Submit Request
         </button>
       </form>
