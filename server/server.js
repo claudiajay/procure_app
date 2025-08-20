@@ -13,8 +13,8 @@ Sentry.setupExpressErrorHandler(app);
 // Middleware
 app.use(cors({
   origin: '*', 
-  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['*'],
   credentials: true,
 }));
 app.use(express.json());
