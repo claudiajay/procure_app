@@ -1,5 +1,5 @@
 // src/services/ProcuraHub.js
-const BASE_URL = "http://localhost:6000/api"; // your backend
+const BASE_URL = "http://procure-app-latest.onrender.com"; // your backend
 
 export async function register(registerData) {
   const response = await fetch(`${BASE_URL}/auth/register/`, {
