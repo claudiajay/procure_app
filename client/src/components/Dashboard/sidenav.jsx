@@ -18,11 +18,9 @@ function Sidenav({ activeTab, setActiveTab }) {
   ];
 
   const handleLogout = () => {
-    // Clear authentication token or user data
-    localStorage.removeItem("token");
+      localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    // Redirect to login page
     window.location.href = "/login";
   };
 
@@ -70,7 +68,6 @@ function Sidenav({ activeTab, setActiveTab }) {
             </div>
           </div>
 
-          {/* Logout Button Styled Like Nav Link */}
           <div
             onClick={handleLogout}
             className="flex items-center gap-3 px-3 py-2 mt-2 rounded-md cursor-pointer hover:bg-white/10 text-red-500 transition"
