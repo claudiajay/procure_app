@@ -5,10 +5,12 @@ import Logo from '../assets/logo1.png';
 import LoginBg from '../assets/journal entries.png';
 import RegisterBg from '../assets/premium photo.png';
 import { register, login } from "../services/ProcuraHub.js";
+import { useNavigate } from "react-router-dom"; // ✅ added
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate(); // ✅ added
 
   const [loginData, setLoginData] = useState({
     email: '',
@@ -29,6 +31,7 @@ const Login = () => {
     e.preventDefault();
     if (!loginData.email.trim() || !loginData.password.trim()) {
       return alert('Email and password are required');
+      console.log("Login result object:", result);
     }
 
     setIsLoading(true);
@@ -41,6 +44,7 @@ const Login = () => {
       localStorage.setItem('token', result.token);
       alert('Login successful!');
       // TODO: Redirect to dashboard
+      navigate("/Dashboard"); // ✅ added
     } catch (error) {
       console.error(error);
       alert(error.message || 'Login failed');

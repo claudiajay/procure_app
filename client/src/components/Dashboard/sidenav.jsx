@@ -1,5 +1,6 @@
 
 import * as Lucide from "lucide-react";
+import { useState } from "react";
 
 function Sidenav({activeTab, setActiveTab}) {
 
@@ -58,8 +59,8 @@ function Sidenav({activeTab, setActiveTab}) {
                 /> */}
                 <div className="w-8 h-8 rounded-full bg-blue-500"></div>
                 <div>
-                    <p className="text-sm font-medium">John Doe</p>
-                    <p className="text-xs text-gray-300">Employee</p>
+                    <p className="text-sm font-medium">Emmanuel Dadzie Aduateh</p>
+                    <p className="text-xs text-gray-300">Manager</p>
                 </div>
                 </div>
         </aside>
