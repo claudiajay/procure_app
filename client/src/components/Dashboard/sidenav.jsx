@@ -1,5 +1,5 @@
 import * as Lucide from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Sidenav({ activeTab, setActiveTab }) {
   const navlinks = [
@@ -17,10 +17,22 @@ function Sidenav({ activeTab, setActiveTab }) {
     },
   ];
 
-  const handleLogout = () => {
-      localStorage.removeItem("token");
-    localStorage.removeItem("user");
+  const [user, setUser] = useState({ name: "", role: "" });
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsed = JSON.parse(storedUser);
+      setUser({
+        name: parsed.name || "User",
+        role: parsed.role || "Role",
+      });
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     window.location.href = "/login";
   };
 
@@ -63,8 +75,8 @@ function Sidenav({ activeTab, setActiveTab }) {
           <div className="flex items-center gap-3 bg-white/10 rounded p-3">
             <div className="w-8 h-8 rounded-full bg-blue-500"></div>
             <div>
-              <p className="text-sm font-medium">Emmanuel Dadzie Aduateh</p>
-              <p className="text-xs text-gray-300">Manager</p>
+              <p className="text-sm font-medium">{user.name}</p>
+              <p className="text-xs text-gray-300">{user.role}</p>
             </div>
           </div>
 

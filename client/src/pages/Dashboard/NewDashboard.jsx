@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const NewDashboard = () => {
   const userName = localStorage.getItem("userName");
+  const userRole = localStorage.getItem("userRole"); 
   const token = localStorage.getItem("token");
 
   const [requests, setRequests] = useState([]);
@@ -41,7 +42,6 @@ const NewDashboard = () => {
         const data = await res.json();
         if (res.ok) {
           setRequests(data.data || []);
-
         } else {
           console.error("Failed to fetch requests:", data.msg);
         }
@@ -64,7 +64,9 @@ const NewDashboard = () => {
           <div>
             <h1 className="text-2xl font-bold">Dashboard</h1>
             <p className="text-gray-500">
-              Welcome back, {userName}! Here's your procurement overview.
+              Welcome back, {userName}{" "}
+              {userRole && <span className="font-semibold">({userRole})</span>}!
+              Here's your procurement overview.
             </p>
           </div>
           <div className="flex items-center gap-4">

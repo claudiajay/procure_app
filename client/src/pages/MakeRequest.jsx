@@ -27,35 +27,55 @@ export default function MakeRequest() {
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">All Requests</h2>
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">📦 All Requests</h2>
+
       {loading ? (
-        <p>Loading requests...</p>
+        <p className="text-gray-500">Loading requests...</p>
       ) : requests.length > 0 ? (
-        <table className="w-full text-left border">
-          <thead>
-            <tr>
-              <th className="p-2 border">Item</th>
-              <th className="p-2 border">Quantity</th>
-              <th className="p-2 border">Reason</th>
-              <th className="p-2 border">Price/Unit</th>
-              <th className="p-2 border">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {requests.map((req, idx) => (
-              <tr key={idx} className="border-t">
-                <td className="p-2 border">{req.itemName}</td>
-                <td className="p-2 border">{req.quantity}</td>
-                <td className="p-2 border">{req.reason}</td>
-                <td className="p-2 border">{req.estimatedPricePerUnit}</td>
-                <td className="p-2 border">{req.status}</td>
+        <div className="overflow-x-auto shadow-lg rounded-lg">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+                <th className="p-3">Item</th>
+                <th className="p-3">Quantity</th>
+                <th className="p-3">Reason</th>
+                <th className="p-3">Price/Unit</th>
+                <th className="p-3">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {requests.map((req, idx) => (
+                <tr
+                  key={idx}
+                  className="odd:bg-white even:bg-gray-100 hover:bg-blue-50 transition"
+                >
+                  <td className="p-3 text-gray-700">{req.itemName}</td>
+                  <td className="p-3 text-gray-700">{req.quantity}</td>
+                  <td className="p-3 text-gray-700">{req.reason}</td>
+                  <td className="p-3 text-gray-700">
+                    GHC{req.estimatedPricePerUnit}
+                  </td>
+                  <td className="p-3">
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                        req.status === "Approved"
+                          ? "bg-green-100 text-green-700"
+                          : req.status === "Pending"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {req.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
-        <p>No requests found.</p>
+        <p className="text-gray-500">No requests found.</p>
       )}
     </div>
   );

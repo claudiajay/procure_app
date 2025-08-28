@@ -18,8 +18,7 @@ const Login = () => {
 
   const [registerData, setRegisterData] = useState({
     fullName: '',
-    // company: '',
-    email: '',   // ✅ fixed here
+    email: '',
     password: '',
     confirmPassword: '',
     role: '',
@@ -30,7 +29,6 @@ const Login = () => {
     e.preventDefault();
     if (!loginData.email.trim() || !loginData.password.trim()) {
       return alert('Email and password are required');
-      console.log("Login result object:", result);
     }
 
     setIsLoading(true);
@@ -39,8 +37,17 @@ const Login = () => {
         email: loginData.email,
         password: loginData.password,
       });
+
       console.log('Login success:', result);
-      localStorage.setItem('token', result.token);
+      
+      if (result?.token) {
+        localStorage.setItem('token', result.token);
+      }
+      if (result?.user) {
+      
+        localStorage.setItem('user', JSON.stringify(result.user));
+      }
+
       alert('Login successful!');
       navigate("/Dashboard"); 
     } catch (error) {
@@ -55,7 +62,7 @@ const Login = () => {
     e.preventDefault();
     if (
       !registerData.fullName.trim() ||
-      !registerData.email.trim() ||    // ✅ fixed here
+      !registerData.email.trim() ||
       !registerData.role.trim() ||
       !registerData.password.trim() ||
       !registerData.confirmPassword.trim() ||
@@ -84,6 +91,7 @@ const Login = () => {
 
   return (
     <div className="w-full flex p-4 justify-between min-h-screen font-sans">
+
       <div className="w-full flex gap-3.5 flex-col justify-center items-center bg-white p-8">
         <h2 className="text-2xl font-bold mb-6">
           {isLogin ? 'Login' : 'Create Account'}
@@ -147,7 +155,9 @@ const Login = () => {
               </button>
             </form>
           ) : (
+
             <form className="space-y-4" onSubmit={handleRegister}>
+              {/* fullName */}
               <input
                 type="text"
                 placeholder="Full Name"
@@ -164,11 +174,11 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Email"
-                value={registerData.email}   // ✅ fixed here
+                value={registerData.email}
                 onChange={(e) =>
                   setRegisterData({
                     ...registerData,
-                    email: e.target.value,   // ✅ fixed here
+                    email: e.target.value,
                   })
                 }
                 className="w-full px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
