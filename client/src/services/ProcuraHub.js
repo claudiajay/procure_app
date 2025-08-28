@@ -1,14 +1,13 @@
 const BASE_URL = "https://procure-app-latest.onrender.com/api"; 
 
-
 export async function register(registerData) {
   const response = await fetch(`${BASE_URL}/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       name: registerData.fullName,
-      company: registerData.company,
-      email: registerData.workEmail,
+      // company: registerData.company,   // uncomment if you’re using it
+      email: registerData.email,         // ✅ fixed here (was workEmail)
       password: registerData.password,
       role: registerData.role.toLowerCase(),
     }),
@@ -23,7 +22,6 @@ export async function register(registerData) {
   
   if (data.token) localStorage.setItem("token", data.token);
   if (data.userId) localStorage.setItem("userId", data.userId);
-  
 
   return data;
 }
@@ -99,7 +97,6 @@ export async function getAllRequests(token) {
     throw err;
   }
 }
-
 
 export async function getApprovedRequests(token) {
   try {

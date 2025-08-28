@@ -19,7 +19,7 @@ const Login = () => {
   const [registerData, setRegisterData] = useState({
     fullName: '',
     // company: '',
-    Email: '',
+    email: '',   // ✅ fixed here
     password: '',
     confirmPassword: '',
     role: '',
@@ -42,7 +42,6 @@ const Login = () => {
       console.log('Login success:', result);
       localStorage.setItem('token', result.token);
       alert('Login successful!');
-      // TODO: Redirect to dashboard
       navigate("/Dashboard"); 
     } catch (error) {
       console.error(error);
@@ -56,8 +55,7 @@ const Login = () => {
     e.preventDefault();
     if (
       !registerData.fullName.trim() ||
-      // !registerData.company.trim() ||
-      !registerData.Email.trim() ||
+      !registerData.email.trim() ||    // ✅ fixed here
       !registerData.role.trim() ||
       !registerData.password.trim() ||
       !registerData.confirmPassword.trim() ||
@@ -163,44 +161,19 @@ const Login = () => {
                 className="w-full px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
               />
 
-                <input
-                  type="Email"
-                  placeholder="Email"
-                  value={registerData.Email}
-                  onChange={(e) =>
-                    setRegisterData({
-                      ...registerData,
-                      Email: e.target.value,
-                    })
-                  }
-                  className="w-full px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
-                />
-              {/* <div className="flex gap-4">
-                <input
-                  type="text"
-                  placeholder="Company name"
-                  value={registerData.company}
-                  onChange={(e) =>
-                    setRegisterData({
-                      ...registerData,
-                      company: e.target.value,
-                    })
-                  }
-                  className="w-1/2 px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
-                />
-                <input
-                  type="Email"
-                  placeholder="Email"
-                  value={registerData.Email}
-                  onChange={(e) =>
-                    setRegisterData({
-                      ...registerData,
-                      Email: e.target.value,
-                    })
-                  }
-                  className="w-1/2 px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
-                />
-              </div> */}
+              <input
+                type="email"
+                placeholder="Email"
+                value={registerData.email}   // ✅ fixed here
+                onChange={(e) =>
+                  setRegisterData({
+                    ...registerData,
+                    email: e.target.value,   // ✅ fixed here
+                  })
+                }
+                className="w-full px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
+              />
+
               <input
                 type="password"
                 placeholder="Password"
