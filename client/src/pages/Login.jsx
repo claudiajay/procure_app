@@ -1,16 +1,15 @@
-// src/pages/Login.jsx
 import React, { useState } from 'react';
 import { Loader } from 'lucide-react';
 import Logo from '../assets/logo1.png';
 import LoginBg from '../assets/journal entries.png';
 import RegisterBg from '../assets/premium photo.png';
 import { register, login } from "../services/ProcuraHub.js";
-import { useNavigate } from "react-router-dom"; // ✅ added
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate(); // ✅ added
+  const navigate = useNavigate(); 
 
   const [loginData, setLoginData] = useState({
     email: '',
@@ -19,8 +18,8 @@ const Login = () => {
 
   const [registerData, setRegisterData] = useState({
     fullName: '',
-    company: '',
-    workEmail: '',
+    // company: '',
+    Email: '',
     password: '',
     confirmPassword: '',
     role: '',
@@ -44,7 +43,7 @@ const Login = () => {
       localStorage.setItem('token', result.token);
       alert('Login successful!');
       // TODO: Redirect to dashboard
-      navigate("/Dashboard"); // ✅ added
+      navigate("/Dashboard"); 
     } catch (error) {
       console.error(error);
       alert(error.message || 'Login failed');
@@ -57,8 +56,8 @@ const Login = () => {
     e.preventDefault();
     if (
       !registerData.fullName.trim() ||
-      !registerData.company.trim() ||
-      !registerData.workEmail.trim() ||
+      // !registerData.company.trim() ||
+      !registerData.Email.trim() ||
       !registerData.role.trim() ||
       !registerData.password.trim() ||
       !registerData.confirmPassword.trim() ||
@@ -163,7 +162,20 @@ const Login = () => {
                 }
                 className="w-full px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
               />
-              <div className="flex gap-4">
+
+                <input
+                  type="Email"
+                  placeholder="Email"
+                  value={registerData.Email}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      Email: e.target.value,
+                    })
+                  }
+                  className="w-full px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
+                />
+              {/* <div className="flex gap-4">
                 <input
                   type="text"
                   placeholder="Company name"
@@ -177,18 +189,18 @@ const Login = () => {
                   className="w-1/2 px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
                 />
                 <input
-                  type="email"
-                  placeholder="Work email"
-                  value={registerData.workEmail}
+                  type="Email"
+                  placeholder="Email"
+                  value={registerData.Email}
                   onChange={(e) =>
                     setRegisterData({
                       ...registerData,
-                      workEmail: e.target.value,
+                      Email: e.target.value,
                     })
                   }
                   className="w-1/2 px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
                 />
-              </div>
+              </div> */}
               <input
                 type="password"
                 placeholder="Password"
@@ -217,7 +229,7 @@ const Login = () => {
               <div className="space-y-2">
                 <label className="block text-sm font-medium">Role</label>
                 <div className="flex gap-4">
-                  {['Employee', 'Manager', 'Procurement Team'].map((role) => (
+                  {['Staff', 'Manager'].map((role) => (
                     <label key={role} className="flex items-center gap-1">
                       <input
                         type="radio"
