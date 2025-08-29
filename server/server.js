@@ -6,6 +6,9 @@ const Sentry = require('@sentry/node');
 const path = require('path');
 // Initialize Express
 const app = express();
+const authRoutes = require('./routes/authRoutes');
+const requestRoutes = require('./routes/requestRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 
 Sentry.setupExpressErrorHandler(app); 
 // move this above route usage if needed
@@ -20,10 +23,10 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/requests', require('./routes/requestRoutes'));
+app.use('/api/auth', authRoutes);
+app.use('/api/requests', requestRoutes);
 app.use('/api/orders', require('./routes/orderRoutes'));
-app.use('/api/dashboard', require('./routes/dashboardRoutes'))
+app.use('/api/dashboard', dashboardRoutes);
 
 
 app.get('/', (req, res) => {
