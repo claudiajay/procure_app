@@ -1,14 +1,15 @@
-// src/pages/Login.jsx
 import React, { useState } from 'react';
 import { Loader } from 'lucide-react';
 import Logo from '../assets/logo1.png';
 import LoginBg from '../assets/journal entries.png';
 import RegisterBg from '../assets/premium photo.png';
 import { register, login } from "../services/ProcuraHub.js";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate(); 
 
   const [loginData, setLoginData] = useState({
     email: '',
@@ -17,8 +18,7 @@ const Login = () => {
 
   const [registerData, setRegisterData] = useState({
     fullName: '',
-    company: '',
-    workEmail: '',
+    email: '',
     password: '',
     confirmPassword: '',
     role: '',
@@ -37,10 +37,19 @@ const Login = () => {
         email: loginData.email,
         password: loginData.password,
       });
+
       console.log('Login success:', result);
-      localStorage.setItem('token', result.token);
+      
+      if (result?.token) {
+        localStorage.setItem('token', result.token);
+      }
+      if (result?.user) {
+      
+        localStorage.setItem('user', JSON.stringify(result.user));
+      }
+
       alert('Login successful!');
-      // TODO: Redirect to dashboard
+      navigate("/Dashboard"); 
     } catch (error) {
       console.error(error);
       alert(error.message || 'Login failed');
@@ -53,8 +62,7 @@ const Login = () => {
     e.preventDefault();
     if (
       !registerData.fullName.trim() ||
-      !registerData.company.trim() ||
-      !registerData.workEmail.trim() ||
+      !registerData.email.trim() ||
       !registerData.role.trim() ||
       !registerData.password.trim() ||
       !registerData.confirmPassword.trim() ||
@@ -83,6 +91,7 @@ const Login = () => {
 
   return (
     <div className="w-full flex p-4 justify-between min-h-screen font-sans">
+
       <div className="w-full flex gap-3.5 flex-col justify-center items-center bg-white p-8">
         <h2 className="text-2xl font-bold mb-6">
           {isLogin ? 'Login' : 'Create Account'}
@@ -146,7 +155,9 @@ const Login = () => {
               </button>
             </form>
           ) : (
+
             <form className="space-y-4" onSubmit={handleRegister}>
+              {/* fullName */}
               <input
                 type="text"
                 placeholder="Full Name"
@@ -159,32 +170,20 @@ const Login = () => {
                 }
                 className="w-full px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
               />
-              <div className="flex gap-4">
-                <input
-                  type="text"
-                  placeholder="Company name"
-                  value={registerData.company}
-                  onChange={(e) =>
-                    setRegisterData({
-                      ...registerData,
-                      company: e.target.value,
-                    })
-                  }
-                  className="w-1/2 px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
-                />
-                <input
-                  type="email"
-                  placeholder="Work email"
-                  value={registerData.workEmail}
-                  onChange={(e) =>
-                    setRegisterData({
-                      ...registerData,
-                      workEmail: e.target.value,
-                    })
-                  }
-                  className="w-1/2 px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
-                />
-              </div>
+
+              <input
+                type="email"
+                placeholder="Email"
+                value={registerData.email}
+                onChange={(e) =>
+                  setRegisterData({
+                    ...registerData,
+                    email: e.target.value,
+                  })
+                }
+                className="w-full px-4 py-2 border rounded-md bg-gray-200 placeholder-gray-500"
+              />
+
               <input
                 type="password"
                 placeholder="Password"
@@ -213,7 +212,7 @@ const Login = () => {
               <div className="space-y-2">
                 <label className="block text-sm font-medium">Role</label>
                 <div className="flex gap-4">
-                  {['Employee', 'Manager', 'Procurement Team'].map((role) => (
+                  {['Staff', 'Manager'].map((role) => (
                     <label key={role} className="flex items-center gap-1">
                       <input
                         type="radio"

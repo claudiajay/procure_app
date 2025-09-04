@@ -1,16 +1,15 @@
-// src/services/ProcuraHub.js
-const BASE_URL = "http://localhost:6000/api"; // your backend
+const BASE_URL = "https://procure-app-latest.onrender.com/api"; 
 
 export async function register(registerData) {
-  const response = await fetch(`${BASE_URL}/auth/register/`, {
+  const response = await fetch(`${BASE_URL}/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      fullName: registerData.fullName,
-      company: registerData.company,
-      email: registerData.workEmail,
+      name: registerData.fullName,
+      // company: registerData.company,   // uncomment if you’re using it
+      email: registerData.email,         // ✅ fixed here (was workEmail)
       password: registerData.password,
-      role: registerData.role,
+      role: registerData.role.toLowerCase(),
     }),
   });
 
@@ -19,11 +18,16 @@ export async function register(registerData) {
     throw new Error(errorText || `Request failed with status ${response.status}`);
   }
 
-  return response.json();
+  const data = await response.json();
+  
+  if (data.token) localStorage.setItem("token", data.token);
+  if (data.userId) localStorage.setItem("userId", data.userId);
+
+  return data;
 }
 
 export async function login(loginData) {
-  const response = await fetch(`${BASE_URL}/auth/login/`, {
+  const response = await fetch(`${BASE_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -37,23 +41,81 @@ export async function login(loginData) {
     throw new Error(errorText || `Request failed with status ${response.status}`);
   }
 
-  return response.json();
+  const data = await response.json();
+ 
+  if (data.token) localStorage.setItem("token", data.token);
+  if (data.userId) localStorage.setItem("userId", data.userId);
+  if (data.name) localStorage.setItem("userName", loginData.email);
+
+  return data;
 }
 
 export async function createRequest(token, formData) {
-  const response = await fetch(`${BASE_URL}/requests/createRequest`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `Bearer ${token}`,
-    },
-    body: new URLSearchParams(formData),
-  });
+  try {
+    const response = await fetch(`${BASE_URL}/requests/createRequest`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",  
+        Authorization: `Bearer ${token}`,     
+      },
+      body: JSON.stringify({
+        itemName: formData.itemName,          
+        quantity: formData.quantity,
+        reason: formData.reason,                     
+        estimatedPricePerUnit: formData.estimatedPricePerUnit, 
+      }),
+    });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || `Request failed with status ${response.status}`);
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || `Request failed with status ${response.status}`);
+    }
+
+    return response.json();
+  } catch (err) {
+    console.error("Error in createRequest:", err);
+    throw err;
   }
+}
 
-  return response.json();
+export async function getAllRequests(token) {
+  try {
+    const response = await fetch(`${BASE_URL}/requests/getAllRequests`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || `Request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Error in getAllRequests:", err);
+    throw err;
+  }
+}
+
+export async function getApprovedRequests(token) {
+  try {
+    const response = await fetch(`${BASE_URL}/requests/getApprovedRequests`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || `Request failed with status ${response.status}`);
+    }
+
+    return response.json();
+  } catch (err) {
+    console.error("Error in getApprovedRequests:", err);
+    throw err;
+  }
 }
