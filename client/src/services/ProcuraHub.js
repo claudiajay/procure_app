@@ -119,3 +119,42 @@ export async function getApprovedRequests(token) {
     throw err;
   }
 }
+
+export async function approveRequest(token, id) {
+  try {
+    const response = await fetch(`${BASE_URL}/requests/${id}/approve`, {
+      method: "PATCH",
+      headers: { 
+        Authorization: `Bearer ${token}` 
+      },
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || `Request failed with status ${response.status}`);
+    }
+    return response.json();
+  } catch (err) {
+    console.error("Error in approveRequest:", err);
+    throw err;
+  }
+}
+
+
+export async function rejectRequest(token, id) {
+  try {
+    const response = await fetch(`${BASE_URL}/requests/${id}/reject`, {
+      method: "PATCH",
+      headers: { 
+        Authorization: `Bearer ${token}` 
+      },
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || `Request failed with status ${response.status}`);
+    }
+    return response.json();
+  } catch(err){
+    console.error("Error in rejectRequest:", err);
+    throw err;
+  }
+}
