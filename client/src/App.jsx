@@ -6,7 +6,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import MakeRequest from './pages/MakeRequest';
 import RequestList from './pages/RequestList'; // Import the Request List page
 import RequestDetails from './pages/RequestDetails';  
-import PrivateRoute from "../components/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
