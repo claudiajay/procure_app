@@ -78,22 +78,19 @@ const rejectRequest = async (req, res) => {
       return res.status(403).json({ success: false, msg: 'Not authorized' });
     }
 
-    const updated = await Request.findByIdAndUpdate(
-      req.params.id,
-      { status: 'Rejected', approvedBy: req.user.id },
-      { new: true }
-    );
+    const deleted = await Request.findByIdAndDelete(req.params.id);
 
-    if (!updated) {
+    if (!deleted) {
       return res.status(404).json({ success: false, msg: 'Request not found' });
     }
 
     res.status(200).json({
       success: true,
-      msg: 'Request rejected successfully',
-      data: updated,
+      msg: 'Request rejected and deleted successfully',
+      data: deleted, // optional: can return the deleted request
     });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ success: false, msg: err.message });
   }
 };
