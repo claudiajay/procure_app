@@ -6,8 +6,8 @@ export async function register(registerData) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       name: registerData.fullName,
-      // company: registerData.company,   // uncomment if you’re using it
-      email: registerData.email,         // ✅ fixed here (was workEmail)
+      // company: registerData.company, 
+      email: registerData.email,         
       password: registerData.password,
       role: registerData.role.toLowerCase(),
     }),
@@ -103,7 +103,6 @@ export async function getApprovedRequests(token) {
     const response = await fetch(`${BASE_URL}/requests/getApprovedRequests`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });

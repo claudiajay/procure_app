@@ -17,8 +17,8 @@ function Dashboard() {
       <div className="flex-1 bg-gray-100 overflow-auto p-6 text-black">
         {activeTab === "dashboard" && <NewDashboard />}
         {activeTab === "request" && <MyRequests />}
-        {activeTab === "new-request" && <CreateRequest />}
-        {activeTab === "order" && <Order />}
+        {/* {activeTab === "new-request" && <CreateRequest />} */}
+        {activeTab === "orders" && <Order />}
       </div>
     </div>
   );

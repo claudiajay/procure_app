@@ -19,7 +19,7 @@ function Sidenav({ activeTab, setActiveTab }) {
       id: 3,
       icon: "FileText",
       label: "Orders",
-      link: "all-requests",
+      link: "orders",
     }
   ];
 
