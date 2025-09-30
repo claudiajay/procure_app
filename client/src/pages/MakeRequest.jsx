@@ -13,6 +13,10 @@ export default function MakeRequest() {
   const [modalOpen, setModalOpen] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
 
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const role = user?.role || "Staff"; //default 
+
   const fetchRequests = useCallback(async () => {
   try {
     setError(null);
@@ -186,7 +190,8 @@ const handleReject = async () => {
             <div className="mb-2"><strong>Reason:</strong> {selectedRequest.reason}</div>
             <div className="mb-2"><strong>Price/Unit:</strong> GHC {selectedRequest.estimatedPricePerUnit}</div>
             <div className="mb-2"><strong>Status:</strong> {selectedRequest.status}</div>
-            <div className="flex gap-8 justify-center mt-6">
+            {role === "Manager" && (
+              <div className="flex gap-8 justify-center mt-6">
               <button
                 className="bg-green-600 text-white px-10 py-2 rounded hover:bg-green-700"
                 onClick={handleApprove}
@@ -202,6 +207,8 @@ const handleReject = async () => {
                 {actionLoading ? "Processing..." : "Reject"}
               </button>
             </div>
+            )}
+            
           </div>
         )}
       </Modal>

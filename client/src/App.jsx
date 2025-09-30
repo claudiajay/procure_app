@@ -8,6 +8,7 @@ import CreateRequest from "./pages/CreateRequest";
 import RequestDetails from "./pages/RequestDetails";
 import PrivateRoute from "./components/PrivateRoute";
 import Order from "./pages/Order";
+import RoleRoute from "./components/RoleRoute";
 
 function App() {
   return (
@@ -56,7 +57,9 @@ function App() {
           path="/orders"
           element={
             <PrivateRoute>
-              <Order />
+              <RoleRoute allowedRoles={["Manager"]}>
+                <Order />
+              </RoleRoute>
             </PrivateRoute>
           }
         />
