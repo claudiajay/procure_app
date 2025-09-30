@@ -15,6 +15,12 @@ function Sidenav({ activeTab, setActiveTab }) {
       label: "My Requests",
       link: "request",
     },
+    {
+      id: 3,
+      icon: "FileText",
+      label: "Orders",
+      link: "orders",
+    }
   ];
 
   const [user, setUser] = useState({ name: "", role: "" });

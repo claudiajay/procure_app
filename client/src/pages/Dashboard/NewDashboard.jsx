@@ -108,7 +108,7 @@ const NewDashboard = () => {
         <div className="bg-white p-4 rounded-lg shadow mb-6">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-bold">Recent Purchase Request</h3>
-            <button className="text-blue-500">View all</button>
+            <Link to="/my-requests" className="text-blue-500 hover:underline">View All</Link>
           </div>
 
           {loading ? (
@@ -118,27 +118,27 @@ const NewDashboard = () => {
           ) : (
             <table className="w-full text-left">
               <thead>
-                <tr className="border-b">
-                  <th className="py-2">REQUEST ID</th>
-                  <th className="py-2">ITEM NAME</th>
-                  <th className="py-2">QUANTITY</th>
-                  <th className="py-2">REASON</th>
-                  <th className="py-2">EST. PRICE PER UNIT</th>
-                  <th className="py-2">STATUS</th>
-                  <th className="py-2">DATE</th>
+                <tr className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-center">
+                  <th className="p-3">REQUEST ID</th>
+                  <th className="p-3">ITEM NAME</th>
+                  <th className="p-3">QTY</th>
+                  <th className="p-3">REASON</th>
+                  {/* <th className="p-3">PRICE/UNIT</th> */}
+                  <th className="p-3">STATUS</th>
+                  <th className="p-3">DATE</th>
                 </tr>
               </thead>
-              <tbody>
-                {requests.map((req, index) => (
-                  <tr key={req._id || index} className="border-b">
-                    <td className="py-2 text-blue-500">
+              <tbody className="text-left">
+                {requests.slice(0,8).map((req, index) => (
+                  <tr key={req._id || index} className="odd:bg-white even:bg-gray-100 hover:bg-blue-50 transition cursor-pointer">
+                    <td className=" text-blue-500">
                       {req.requestId || req._id}
                     </td>
-                    <td className="py-2">{req.itemName}</td>
-                    <td className="py-2">{req.quantity}</td>
-                    <td className="py-2">{req.reason}</td>
-                    <td className="py-2">{req.estimatedPricePerUnit}</td>
-                    <td className="py-2">
+                    <td className="p-3">{req.itemName}</td>
+                    <td className="p-3">{req.quantity}</td>
+                    <td className="p-3">{req.reason}</td>
+                    {/* <td className="p-3">{req.estimatedPricePerUnit}</td> */}
+                    <td className="p-3">
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(
                           req.status

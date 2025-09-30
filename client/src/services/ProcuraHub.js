@@ -6,8 +6,8 @@ export async function register(registerData) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       name: registerData.fullName,
-      // company: registerData.company,   // uncomment if you’re using it
-      email: registerData.email,         // ✅ fixed here (was workEmail)
+      // company: registerData.company, 
+      email: registerData.email,         
       password: registerData.password,
       role: registerData.role.toLowerCase(),
     }),
@@ -103,7 +103,6 @@ export async function getApprovedRequests(token) {
     const response = await fetch(`${BASE_URL}/requests/getApprovedRequests`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
@@ -116,6 +115,45 @@ export async function getApprovedRequests(token) {
     return response.json();
   } catch (err) {
     console.error("Error in getApprovedRequests:", err);
+    throw err;
+  }
+}
+
+export async function approveRequest(token, id) {
+  try {
+    const response = await fetch(`${BASE_URL}/requests/${id}/approve`, {
+      method: "PATCH",
+      headers: { 
+        Authorization: `Bearer ${token}` 
+      },
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || `Request failed with status ${response.status}`);
+    }
+    return response.json();
+  } catch (err) {
+    console.error("Error in approveRequest:", err);
+    throw err;
+  }
+}
+
+
+export async function rejectRequest(token, id) {
+  try {
+    const response = await fetch(`${BASE_URL}/requests/${id}/reject`, {
+      method: "PATCH",
+      headers: { 
+        Authorization: `Bearer ${token}` 
+      },
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || `Request failed with status ${response.status}`);
+    }
+    return response.json();
+  } catch(err){
+    console.error("Error in rejectRequest:", err);
     throw err;
   }
 }

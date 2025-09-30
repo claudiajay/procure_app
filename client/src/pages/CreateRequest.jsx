@@ -40,7 +40,7 @@ const RequestList = () => {
       setTimeout(() => navigate("/my-requests"), 2000);
     } catch (err) {
       console.error("Error submitting request:", err);
-      alert("❌ Failed to submit request. Please try again.");
+      alert("Failed to submit request. Please try again.");
     } finally {
       setLoading(false);
     }
